@@ -42,9 +42,9 @@ district_coords = {
     "Gush Katif" : (31.21, 34.16),
 }
 
-data_selection_to_file = {
-    "Yearly Fatalities" : "./data/yearly_fatalities.json",
-    "Yearly Fatalities Rolling Sum" : "./data/yearly_fatalities_rolling_sum.json",
+data_selection_to_file = { 
+    "Yearly Fatalities" : "./data_json/yearly_fatalities.json",
+    "Yearly Fatalities Rolling Sum" : "./data_json/yearly_fatalities_rolling_sum.json",
 }
 
 
