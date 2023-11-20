@@ -25,7 +25,7 @@ def fatalities_circle(data, district_coords,
     colormap = LinearColormap(
         colors=heatmap_colors,
         vmin= heatmap_range[0],
-        vmax=heatmap_range[1]  # Adjust the range based on your data
+        vmax=heatmap_range[1]  
     )
 
     colormap.caption = 'Deaths per district'
@@ -49,7 +49,7 @@ def fatalities_circle(data, district_coords,
                 ).add_to(layer)
             folium.Circle(
                     location=district_coords[district],
-                    radius=np.sqrt(data[year][district]) * 1000,  # scale radius for better visualization
+                    radius=np.sqrt(data[year][district]) * 1000, 
                     color=colormap(data[year][district]),
                     fill=True,
                     fill_color=colormap(data[year][district]),
@@ -59,14 +59,6 @@ def fatalities_circle(data, district_coords,
     
 
 
-
-    # Create a custom control with checkboxes for base layers
-    base_layers = {
-        'OpenStreetMap': folium.TileLayer('openstreetmap'),
-    }
-
-        # Add Layer Control to the map with type set to "checkbox" using a custom control
     folium.LayerControl(collapsed=False, control=False).add_to(m)
 
-    # Save the map to an HTML file
     return m

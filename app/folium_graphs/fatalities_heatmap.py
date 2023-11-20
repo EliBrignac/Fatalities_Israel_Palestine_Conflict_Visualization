@@ -18,13 +18,13 @@ def fatalities_heatmap(data, district_coords,
                    zoom_start=8, 
                    width=map_width, 
                    height=map_height)
-    # Create a base map centered around the region
+
     folium.TileLayer('openstreetmap').add_to(m)
 
     colormap = LinearColormap(
         colors=heatmap_colors,
         vmin= heatmap_range[0],
-        vmax=heatmap_range[1]  # Adjust the range based on your data
+        vmax=heatmap_range[1]
     )
 
     colormap.caption = 'Deaths per district'
@@ -51,16 +51,10 @@ def fatalities_heatmap(data, district_coords,
             yearly_heatmap_data.append((*district_coords[district], fatalities))
         HeatMap(yearly_heatmap_data, name=str(year), overlay=False).add_to(layer)
         yearly_heatmap_data = []
-            # Add markers
 
         layer.add_to(m)
         
-    # Create a custom control with checkboxes for base layers
-    base_layers = {
-        'OpenStreetMap': folium.TileLayer('openstreetmap'),
-    }
 
-    # Add Layer Control to the map with type set to "checkbox" using a custom control
     folium.LayerControl(collapsed=False, control=True).add_to(m)
 
 

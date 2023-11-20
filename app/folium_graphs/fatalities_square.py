@@ -18,13 +18,13 @@ def fatalities_square(data, district_coords,
                    zoom_start=8, 
                    width=map_width, 
                    height=map_height)
-    # Create a base map centered around the region
+
     folium.TileLayer('openstreetmap').add_to(m)
 
     colormap = LinearColormap(
         colors=heatmap_colors,
         vmin= heatmap_range[0],
-        vmax=heatmap_range[1]  # Adjust the range based on your data
+        vmax=heatmap_range[1] 
     )
 
     colormap.caption = 'Deaths per district'
@@ -50,7 +50,6 @@ def fatalities_square(data, district_coords,
             bounds=[(district_coords[district][0]-0.05, district_coords[district][1]-0.05),
                      (district_coords[district][0]+0.05, district_coords[district][1]+0.05)],
                     location=district_coords[district],
-                    radius=np.sqrt(data[year][district]) * 1000,  # scale radius for better visualization
                     color=colormap(data[year][district]),
                     fill=True,
                     fill_color=colormap(data[year][district]),
@@ -60,30 +59,9 @@ def fatalities_square(data, district_coords,
 
         layer.add_to(m)
 
-    # Create a custom control with checkboxes for base layers
-    base_layers = {
-        'OpenStreetMap': folium.TileLayer('openstreetmap'),
-    }
 
     # Add Layer Control to the map with type set to "checkbox" using a custom control
     folium.LayerControl(collapsed=False, control=False).add_to(m)
-
-    # Add JavaScript to enable/disable OpenStreetMap layer based on checkbox state
-    m.get_root().html.add_child(folium.Element("""
-    <script>
-    var baseLayers = %s;
-    var control = L.control.layers(baseLayers, {}, {collapsed: true, autoZIndex: true}).addTo(m);
-    var openStreetMapCheckbox = document.querySelector('input[name="layer0"]');
-
-    openStreetMapCheckbox.addEventListener('change', function() {
-        if (this.checked) {
-            control.addBaseLayer(baseLayers['OpenStreetMap'], 'OpenStreetMap');
-        } else {
-            control.removeLayer(baseLayers['OpenStreetMap']);
-        }
-    });
-    </script>
-    """ % base_layers))
 
     # Save the map to an HTML file
     return m
