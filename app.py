@@ -43,8 +43,8 @@ district_coords = {
 }
 
 data_selection_to_file = { 
-    "Yearly Fatalities" : "./data_json/yearly_fatalities.json",
-    "Yearly Fatalities Rolling Sum" : "./data_json/yearly_fatalities_rolling_sum.json",
+    "Yearly Fatalities" : "data_json/yearly_fatalities.json",
+    "Yearly Fatalities Rolling Sum" : "data_json/yearly_fatalities_rolling_sum.json",
 }
 
 

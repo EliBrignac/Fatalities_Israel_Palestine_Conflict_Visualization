@@ -7,8 +7,8 @@ from branca.colormap import LinearColormap
 import json
 import os
 
-def fatalities_square(data, district_coords,
-                       markers,
+def fatalities_circle(data, district_coords,
+                      markers,
                        map_height = 2000, 
                        map_width = 2000,
                        heatmap_colors = ['yellow', 'purple'],
@@ -18,27 +18,30 @@ def fatalities_square(data, district_coords,
                    zoom_start=8, 
                    width=map_width, 
                    height=map_height)
-
-    folium.TileLayer('openstreetmap').add_to(m)
+    # Create a base map centered around the region
+    folium.TileLayer('openstreetmap' ).add_to(m)
+    
 
     colormap = LinearColormap(
         colors=heatmap_colors,
         vmin= heatmap_range[0],
-        vmax=heatmap_range[1] 
+        vmax=heatmap_range[1]  
     )
 
     colormap.caption = 'Deaths per district'
     colormap.add_to(m)
     
-    data_file_path = os.path.abspath(data)
-    with open(data_file_path, 'r') as file:
+    # data_file_path = os.path.abspath(data)
+    # print(data_file_path)
+    # print(data)
+    with open(data, 'r') as file:
         data = file.read()
     
     data = json.loads(data)
 
     yearly_district_fatalities = pd.Series(data)
     for year, year_data in yearly_district_fatalities.groupby(level=0):
-        layer = folium.FeatureGroup(name=str(year), overlay=False)
+        layer = folium.FeatureGroup(name=str(year), overlay=False, control=True)
         for district, coord in district_coords.items():
             fatalities = data[year][district]
             if markers:
@@ -47,22 +50,18 @@ def fatalities_square(data, district_coords,
                     tooltip=f'{district}: {fatalities} fatalities',
                     icon=None
                 ).add_to(layer)
-            folium.Rectangle(
-            bounds=[(district_coords[district][0]-0.05, district_coords[district][1]-0.05),
-                     (district_coords[district][0]+0.05, district_coords[district][1]+0.05)],
+            folium.Circle(
                     location=district_coords[district],
+                    radius=np.sqrt(data[year][district]) * 1000, 
                     color=colormap(data[year][district]),
                     fill=True,
                     fill_color=colormap(data[year][district]),
                     fill_opacity=0.6,
                 ).add_to(layer)
-
-
         layer.add_to(m)
+    
 
 
-    # Add Layer Control to the map with type set to "checkbox" using a custom control
     folium.LayerControl(collapsed=False, control=False).add_to(m)
 
-    # Save the map to an HTML file
     return m
