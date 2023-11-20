@@ -88,10 +88,9 @@ district_coords = {district: coord for district, coord in district_coords.items(
 # ========================================================
 
 
-# col1, col2 = st.columns(2)
 
-# # ======================= Map =======================
-# with col1:
+
+#  ======================= Map =======================
 
 data_file = data_selection_to_file[data_formating]
 heatmap_colors=[starting_color, ending_color]
@@ -111,7 +110,3 @@ st_folium(m, 900, width=725)
 
 # ========================================================
 
-
-# ======================= General Graphs =======================
-# with col2:
-#     st.write("## General Graphs")
