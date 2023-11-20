@@ -5,7 +5,7 @@ import numpy as np
 from branca.colormap import linear
 from branca.colormap import LinearColormap
 import json
-
+import os
 
 def fatalities_square(data, district_coords,
                        markers,
@@ -30,9 +30,10 @@ def fatalities_square(data, district_coords,
     colormap.caption = 'Deaths per district'
     colormap.add_to(m)
     
-    with open(data, 'r') as file:
+    data_file_path = os.path.abspath(data)
+    with open(data_file_path, 'r') as file:
         data = file.read()
-
+    
     data = json.loads(data)
 
     yearly_district_fatalities = pd.Series(data)
