@@ -3,6 +3,8 @@
 Check it out here: 
 https://elibrignac-fatalities-israel-palestine-conflict-visu-app-imylal.streamlit.app/
 
+# 1st Place winner for the 2023 University of Delaware Data Science Visualization Competition
+
 This map shows the fatalities in different districts of israel from the israel palestine conflict according to a kaggle dataset. The accuracy of the kaggle data is outside of my control and may be subject to inaccuracies. This is just a fun project of mine and can be viewed and played with at this [link](https://elibrignac-fatalities-israel-palestine-conflict-visu-app-imylal.streamlit.app/).
 
 Circles Feature
