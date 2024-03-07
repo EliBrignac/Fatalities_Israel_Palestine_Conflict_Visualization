@@ -1,3 +1,5 @@
+# 1st Place Overall @ 2023 University of Delaware Data Science Visualization Competition
+
 # Fatalities_Israel_Palestine_Conflict_Visualization
 
 Check it out here: 
